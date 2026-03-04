@@ -484,6 +484,50 @@ blockquote {
 
 
 /* ========================================
+   🖥️ MODO PANTALLA COMPLETA (CORREGIDO)
+   ======================================== */
+
+/* Wrapper principal */
+#app-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* Estilos fullscreen con todos los prefijos */
+#app-wrapper:fullscreen,
+#app-wrapper:-webkit-full-screen,
+#app-wrapper:-moz-full-screen,
+#app-wrapper:-ms-fullscreen {
+    background: var(--bg-dark);
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+}
+
+/* ✅ CONTROLES SIEMPRE VISIBLES EN FULLSCREEN (sin hover) */
+#app-wrapper:fullscreen .controls,
+#app-wrapper:-webkit-full-screen .controls,
+#app-wrapper:-moz-full-screen .controls,
+#app-wrapper:-ms-fullscreen .controls {
+    opacity: 1 !important; /* Forzar visibilidad */
+    visibility: visible !important;
+    z-index: 100;
+    /* Mantener posición original */
+}
+
+/* Opcional: Efecto sutil al hacer hover (sin ocultar) */
+#app-wrapper:fullscreen .controls button:hover,
+#app-wrapper:-webkit-full-screen .controls button:hover {
+    transform: translateY(-2px);
+    background: var(--primary);
+}
+
+/* ========================================
    📱 RESPONSIVE (Media Queries)
    ======================================== */
 @media (max-width: 768px) {
