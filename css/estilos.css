@@ -527,6 +527,238 @@ blockquote {
     background: var(--primary);
 }
 
+
+/* ========================================
+   🌟 SLIDE FINAL - EFECTO STAR WARS
+   ======================================== */
+
+/* Fondo de estrellas con CSS puro (sin imágenes externas) */
+.starfield-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        radial-gradient(2px 2px at 20px 30px, #fff, transparent),
+        radial-gradient(2px 2px at 40px 70px, rgba(255,255,255,0.8), transparent),
+        radial-gradient(2px 2px at 50px 160px, #fff, transparent),
+        radial-gradient(2px 2px at 90px 40px, rgba(255,255,255,0.9), transparent),
+        radial-gradient(2px 2px at 130px 80px, #fff, transparent),
+        radial-gradient(2px 2px at 160px 120px, rgba(255,255,255,0.7), transparent),
+        radial-gradient(2px 2px at 200px 30px, #fff, transparent),
+        radial-gradient(2px 2px at 240px 90px, rgba(255,255,255,0.8), transparent),
+        radial-gradient(2px 2px at 280px 150px, #fff, transparent),
+        radial-gradient(2px 2px at 320px 50px, rgba(255,255,255,0.9), transparent),
+        radial-gradient(2px 2px at 360px 110px, #fff, transparent),
+        radial-gradient(2px 2px at 400px 180px, rgba(255,255,255,0.7), transparent);
+    background-size: 500px 200px;
+    animation: starfield-move 100s linear infinite;
+    z-index: 0;
+}
+
+@keyframes starfield-move {
+    0% { background-position: 0 0; }
+    100% { background-position: 0 1000px; }
+}
+
+/* Contenedor principal con perspectiva 3D */
+.starwars-container {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding-top: 10vh;
+    perspective: 800px;
+    transform-style: preserve-3d;
+    overflow: hidden;
+}
+
+/* Logo animado "GRACIAS" */
+.sw-logo {
+    position: relative;
+    display: flex;
+    gap: 0.1em;
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    font-weight: 800;
+    font-size: clamp(2rem, 8vw, 5rem);
+    color: var(--primary);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    opacity: 0;
+    transform: scale(1.5) translateY(-20px);
+    animation: sw-logo-enter 1.5s ease-out forwards;
+    text-shadow: 0 0 20px rgba(56, 189, 248, 0.8),
+                 0 0 40px rgba(56, 189, 248, 0.4);
+    margin-bottom: 2rem;
+}
+
+.sw-logo-enter {
+    animation: sw-logo-enter 1.2s ease-out forwards;
+}
+
+@keyframes sw-logo-enter {
+    0% {
+        opacity: 0;
+        transform: scale(1.5) translateY(-20px);
+    }
+    30% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+/* Animación letra por letra */
+.sw-letter {
+    display: inline-block;
+    opacity: 0;
+    transform: rotateX(90deg);
+    animation: sw-letter-pop 0.4s ease-out forwards;
+    animation-delay: var(--delay, 0s);
+}
+
+@keyframes sw-letter-pop {
+    0% {
+        opacity: 0;
+        transform: rotateX(90deg) translateY(10px);
+    }
+    50% {
+        opacity: 1;
+        transform: rotateX(0) translateY(0);
+    }
+    100% {
+        opacity: 1;
+        transform: rotateX(0) translateY(0);
+    }
+}
+
+/* Wrapper del texto de crawl */
+.sw-crawl-wrapper {
+    position: relative;
+    width: 90%;
+    max-width: 700px;
+    height: 60vh;
+    margin-top: 2rem;
+    perspective: 400px;
+    perspective-origin: 50% 100%;
+    overflow: hidden;
+    mask-image: linear-gradient(to bottom, 
+        transparent 0%, 
+        black 15%, 
+        black 85%, 
+        transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, 
+        transparent 0%, 
+        black 15%, 
+        black 85%, 
+        transparent 100%);
+}
+
+/* Texto que se desplaza (efecto crawl) */
+.sw-crawl {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%) translateZ(0);
+    width: 90%;
+    color: #fff;
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    font-size: clamp(0.9rem, 2.5vw, 1.3rem);
+    line-height: 2.5;
+    text-align: justify;
+    transform-style: preserve-3d;
+    animation: sw-crawl-up 25s linear forwards;
+    animation-delay: 2s; /* Espera a que termine el logo */
+}
+
+@keyframes sw-crawl-up {
+    0% {
+        transform: translateX(-50%) translateZ(0) translateY(0);
+        opacity: 1;
+    }
+    90% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateX(-50%) translateZ(-300px) translateY(-150%);
+        opacity: 0;
+    }
+}
+
+/* Estilos de párrafos dentro del crawl */
+.sw-crawl p {
+    margin: 1.5em 0;
+    color: rgba(255, 255, 255, 0.95);
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+}
+
+.sw-crawl p:first-child {
+    font-size: 1.3em;
+    font-weight: 600;
+    color: var(--secondary);
+    text-align: center;
+    letter-spacing: 0.05em;
+}
+
+.sw-signature {
+    font-style: italic;
+    color: var(--accent) !important;
+    text-align: center;
+    margin-top: 2em !important;
+    text-shadow: 0 0 15px rgba(47, 183, 126, 0.9) !important;
+}
+
+.sw-final {
+    font-weight: 700;
+    font-size: 1.1em;
+    color: var(--primary) !important;
+    text-align: center;
+    text-shadow: 0 0 15px rgba(56, 189, 248, 0.9) !important;
+    margin-top: 1em !important;
+}
+
+/* Controles minimalistas para el slide final */
+.controls-minimal {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100;
+    display: flex;
+    gap: 1rem;
+}
+
+.controls-minimal button {
+    background: rgba(30, 41, 59, 0.9);
+    border: 2px solid var(--primary);
+    color: var(--primary);
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.controls-minimal button:hover {
+    background: var(--primary);
+    color: var(--bg-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(56, 189, 248, 0.4);
+}
+
+/* Ocultar controles normales en este slide */
+#slide-14 ~ .controls {
+    display: none;
+}
+
 /* ========================================
    📱 RESPONSIVE (Media Queries)
    ======================================== */
